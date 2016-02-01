@@ -42,7 +42,7 @@ co(function *() {
     cursor = reader.read();
 
     while (yield cursor.hasNext()) {
-        const item = cursor.next();
+        const item = yield cursor.next();
         parser.parse(item);
     }
 })
