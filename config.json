@@ -1,4 +1,0 @@
-{
-    "connectionString": "mongodb://localhost:27018,localhost:27019/test?replicaSet=routerSet",
-    "collectionName": "cap2"
-}
