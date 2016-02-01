@@ -1,0 +1,7 @@
+{
+    "connectionString": "mongodb://localhost:27017/jsRouterLogs",
+    "username": null,
+    "password": null,
+    "collectionName": "logs",
+    "timestampField": "_id"
+}

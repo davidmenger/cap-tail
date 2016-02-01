@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+'use strict';
+
+const mongodb = require('mongodb');
+const co = require('co');
+const Reader = require('../lib/Reader');
+const parser = require('../lib/parser');
+
+const defaultOptions = require('../config.default.json');
+
+let staticOptions;
+try {
+    staticOptions = require('../config.json');
+} catch (e) {
+    staticOptions = {};
+}
+
+const options = Object.assign({}, defaultOptions, staticOptions);
+let db;
+let cursor;
+
+function close() {
+    if (cursor) {
+        cursor.close();
+    }
+    if (db) {
+        db.close(() => {
+            console.log('DB closed');
+        });
+    }
+}
+
+co(function *() {
+    db = yield mongodb.MongoClient.connect(options.connectionString);
+
+    if (options.username) {
+        yield db.authenticate(options.username, options.password);
+    }
+
+    const reader = new Reader(db, options.collectionName, options.timestampField);
+
+    cursor = reader.read();
+
+    while (yield cursor.hasNext()) {
+        const item = cursor.next();
+        parser.parse(item);
+    }
+})
+.catch((e) => {
+    console.error('Error: ', e, e.stack);
+    close();
+    throw e;
+});
+
+process.on('SIGINT', () => {
+    close();
+});

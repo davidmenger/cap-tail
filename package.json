@@ -1,0 +1,25 @@
+{
+  "name": "cap-tail",
+  "version": "1.0.0",
+  "description": "Simple command line utility for tailing mongodb capped collections",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidmenger/cap-tail.git"
+  },
+  "author": "David Menger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidmenger/cap-tail/issues"
+  },
+  "homepage": "https://github.com/davidmenger/cap-tail#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "co": "^4.6.0",
+    "kerberos": "0.0.18",
+    "mongodb": "^2.1.4"
+  }
+}
